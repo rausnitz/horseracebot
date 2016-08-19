@@ -56,7 +56,7 @@ browser.requestSingle({ url: 'http://projects.fivethirtyeight.com/2016-election-
       fs.writeFile('record.json', JSON.stringify(record), function(err) {
         if (err) throw err;
         if (!_.isEqual(record.current, record.previous)) {
-          var message = 'New election forecast from @FiveThirtyEight. Chance of winning: Clinton ' + record.current.clinton_chance + '%, Trump ' + record.current.trump_chance + '%. Closest: ' + record.current.close_states.join(', ') + '. http://projects.fivethirtyeight.com/2016-election-forecast/';
+          var message = 'New forecast from @FiveThirtyEight. Chance of winning: Clinton ' + record.current.clinton_chance + '%, Trump ' + record.current.trump_chance + '%. Tipping points: ' + record.current.close_states.join(', ') + '. http://projects.fivethirtyeight.com/2016-election-forecast/';
           console.log('New: ' + JSON.stringify(scrape));
           send_tweet(message);
         } else {
