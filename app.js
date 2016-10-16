@@ -28,7 +28,7 @@ browser.requestSingle({ url: 'http://projects.fivethirtyeight.com/2016-election-
       chances_of_winning = $('.winprob-bar .candidate-text'),
       get_chance_val = function(el) {
         var str = el.find('.candidate-val.winprob').html();
-        return Math.round(str.slice(0, str.indexOf('<span class="candidate-percent-sign">')));
+        return str.slice(0, str.indexOf('<span class="candidate-percent-sign">'));
       };
   chances_of_winning.each(function() {
     if ($(this).html().indexOf('Clinton') > -1) {
@@ -56,7 +56,7 @@ browser.requestSingle({ url: 'http://projects.fivethirtyeight.com/2016-election-
       fs.writeFile('record.json', JSON.stringify(record), function(err) {
         if (err) throw err;
         if (!_.isEqual(record.current, record.previous)) {
-          var message = 'New forecast from @FiveThirtyEight. Chance of winning: Clinton ' + record.current.clinton_chance + '%, Trump ' + record.current.trump_chance + '%. Tipping points: ' + record.current.close_states.join(', ') + '. http://projects.fivethirtyeight.com/2016-election-forecast/';
+          var message = 'New @FiveThirtyEight forecast. Chance of winning: Clinton ' + record.current.clinton_chance + '%, Trump ' + record.current.trump_chance + '%. Tipping points: ' + record.current.close_states.join(', ') + '. http://projects.fivethirtyeight.com/2016-election-forecast/';
           console.log('New: ' + JSON.stringify(scrape));
           send_tweet(message);
         } else {
